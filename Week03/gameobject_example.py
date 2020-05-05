@@ -11,48 +11,9 @@ class GameObject:
         self.x = x
         self.y = y
 
-        # controls the speed our gameobject can move at
-        self.speed = 10
-
     # this function is called every frame
     def update(self):
-
-        # a list of every key state (true == pressed, false == not pressed)
-        keysDown = pygame.key.get_pressed()
-
-        # get the keys we want from the list
-        w = keysDown[pygame.K_w]
-        a = keysDown[pygame.K_a]
-        s = keysDown[pygame.K_s]
-        d = keysDown[pygame.K_d]
-
-        # this will store our desired movement as a 2d vector
-        # essentially a vector is a value with 2 (or more) components
-        target = [0, 0]
-
-        # by default the target wont 'point' anywhere
-        # if we add one to the x value the vector will look like
-        # -> (1, 0)
-
-        # the 'w' key is pressed
-        if w == True:
-            target[1] -= 1
-
-        # if the 'a' key is pressed
-        if a == True:
-            target[0] -= 1
-        if s == True:
-            target[1] += 1
-        if d == True:
-            target[0] += 1
-
-        # multiply both components of our target vector by our speed
-        # ps speed is defined in our __init__ method
-        target = [i * self.speed for i in target]
-
-        # apply the transformation
-        self.x += target[0]
-        self.y += target[1]
+        pass        
 
     def translate(self, target):
 
