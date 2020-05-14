@@ -8,6 +8,8 @@ class Game:
         pygame.display.set_caption(_title)
         
         self.bg_colour = (98, 127, 255)
+
+        #Something has to go here
         
         self.is_running = True
 
@@ -25,11 +27,12 @@ class Game:
             #other event processing functionality goes here
 
     def update(self):
+        #something has to go here
         pass
 
     def render(self):
         self.screen.fill(self.bg_colour)
-        #other renders go here
+        #Something has to go here
         pygame.display.flip()
 
     def cleanup(self):
