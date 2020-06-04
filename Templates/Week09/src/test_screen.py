@@ -1,32 +1,49 @@
 '''
     ***Test Screen class***
-    Pygame "engine"
-    Designed to test a couple effects
+    Implemented with the KHL Engine
+    Created       May 23, 2020
+    Last Modified Jun 06, 2020
+
+    Remarks:
+    -> Implementation of KHL Engine's Screen class
+    -> Contains the Game Objects and Behaviours
+       needed for the demo
+    -> Implements custom collision detection, for
+       visualization purposes
 '''
+#Basic (and Engine) imports
 import pygame
 from engine.screen import Screen
 from engine.game_object import GameObject
 from engine.box_collider import BoxCollider
-#Behaviour Imports
+#Behaviour (source code) imports
 from src.rect_renderer import RectRenderer
 from src.ship_renderer import ShipRenderer
 from src.movement import Movement
 from src.shield_renderer import ShieldRenderer
 from src.ship_commands import ShipCommands
-
+#"Convenience" imports
+from pygame.math import Vector2
 
 class TestScreen(Screen):
     def __init__(self):
         super().__init__()
 
     def start(self):
-        self.image = pygame.image.load("assets/Images/Space.jpg")
+        #Background setting functionality
+        self.image = pygame.image.load("assets/images/space.jpg")
+
+        #player character setting:
+        #-> Sets the Transform so that the ship begins the game
+        #   in the middle of the screen
+        #-> Adds a box collider and sets its size
+        #-> Also adds Movement, ShipCommands and ShipRenderer
+        #   functionality
+        #-> Adds the Game Object to the game_objects list
         test_go = GameObject()
         test_go.name = "Ship"
-        test_go.get_behaviour("Transform").position.x = 512
-        test_go.get_behaviour("Transform").position.y = 388
+        test_go.get_behaviour("Transform").position = Vector2(512, 388)
         test_go.add_behaviour(BoxCollider())
-        test_go.get_behaviour("BoxCollider").is_debug = False
         test_go.get_behaviour("BoxCollider").extent = pygame.math.Vector2(150)
         test_go.add_behaviour(ShipRenderer())
         test_go.add_behaviour(ShieldRenderer())
@@ -34,23 +51,38 @@ class TestScreen(Screen):
         test_go.add_behaviour(ShipCommands())
         self.add_game_object(test_go)
 
-        #insert obstacle here
-        #suggestion: Name: "Obstacle", position: 200, 200, size: 350
-        
+        #insert obstacle below:
+        #-> Name it "Obstacle"
+        #-> Position its Transform at 200, 200
+        #-> Add a BoxCollider behaviour
+        #-> Set the BoxCollider's is_debug flag to True
+        #-> Set the BoxCollider's extent to 350, 350
+        #-> Add the Game Object to the screen's game_objects list
 
-        #insert overlap here
-        #suggestion: Name: "Overlap", add BoxCollider and RectRenderer
-        #It might be a good idea to recolour the RectRenderer
         
+        #insert the overlap game object here:
+        #-> Name it "Overlap"
+        #-> Add a RectRenderer behaviour
+        #-> Set the RectRenderer's colour
+        #-> Add the Game Object to the screen's game_objects list
+
+
+        #base class start() call
         super().start()
         
     def update(self):
         super().update()
 
-        #create a rect from the overlap using the collider's clip function
-        #assign the afore-created rect to the overlap object's collider box
-        #reposition the overlap's transform to that center
-        #assign the overlap's collider box to the overlap's RectRenderer
+        #Overlap management:
+        #-> Get the Ship's BoxCollider behaviour
+        #   and store it in a variable
+        #-> Get the Obstacle's BoxCollider behaviour
+        #   and store it in a variable
+        #-> Assign the result of the ship box's clipping
+        #   by the obstacle's box to a temporary variable
+        #-> Assign the temporary box's centre to the Overlap's position
+        #-> Assign the temporary box to the rect attribute of the
+        #   Overlap's RectRenderer behaviour
         
     def render(self):
         surf = pygame.display.get_surface()
