@@ -21,9 +21,14 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((1024, 768))
     pygame.display.set_caption("Rect Test")
-    #Create a list of rectangles
-    #optional: create a list of colours (should match rect
-    #list length)
+
+    #Create a Rectangle:
+    #Obs.: will be mouse-controlled
+    #optional: create a tuple for the rectangle's colour
+    
+    #Create a list of (at least 3) rectangles
+    #optional: create a list of colours
+    #(should match rect list length)
 
     #Create an extra rectangle for overlap detection
     
@@ -35,20 +40,25 @@ def main():
             if evt.type == pygame.QUIT:
                 is_running = False
 
-        #mouse-controlled rectangle (uncomment code below)
-        #rects[0].center = pygame.mouse.get_pos()
+        #Controlling player rect with mouse
+        #(uncomment code below)
+        #player_rect.center = pygame.mouse.get_pos()
 
         #clip result rectangle (insert code below)
+        #advanced: clip against a list
 
         #Render part
         screen.fill((0, 0, 127))
 
         #Render rectangles:
+        #1: Render player rectangle
+
+        #2: Render list of rectangles
         #optional: use a for loop to render them with the
-        #same or different colours. If using a for loop,
-        #the code below should be adjusting accordingly
-        #pygame.draw.rect(screen, (0, 255, 0), rects[0])
-        #pygame.draw.rect(screen, (255, 255, 0), rects[1])
+        #same or different colours. If using a for loop, the
+        #example code below should be adjusted accordingly
+        #pygame.draw.rect(screen, (0, 255, 0), rect_list[0])
+        #pygame.draw.rect(screen, (255, 255, 0), rect_list[1])
 
         #If there is a collision, render it here:
 

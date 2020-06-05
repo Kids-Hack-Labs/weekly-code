@@ -22,14 +22,20 @@ def main():
     screen = pygame.display.set_mode((1024, 768))
     pygame.display.set_caption("Rect Test")
 
+    #Create a Rectangle
+    #Obs.: will be mouse-controlled
+    #optional: create a tuple for the rectangle's colour
+    player_rect = Rect(0, 0, 100, 100)
+    player_colour = (0, 255, 0)
+         
     #Create a list of rectangles
-    rects = [Rect(100, 100, 100, 100),
-             Rect(150, 150, 150, 150),
-             Rect(800, 600, 150, 150)]
+    rect_list = [Rect(550, 100, 200, 200),
+                 Rect(150, 150, 350, 350),
+                 Rect(800, 600, 150, 150)]
 
     #optional: create a list of colours (should match rect
     #list length) 
-    colours = [(  0, 255,   0),
+    colours = [(255, 255,   0),
                (255,   0, 255),
                (  0, 255, 255)]
 
@@ -44,29 +50,33 @@ def main():
             if evt.type == pygame.QUIT:
                 is_running = False
 
-        #mouse-controlled rectangle (first in rectangle list)
-        rects[0].center = pygame.mouse.get_pos()
+        #Controlling the player rectangle with the mouse
+        #(uncomment code below)
+        player_rect.center = pygame.mouse.get_pos()
 
         #clip result rectangle:
-        result = rects[0].clip(rects[1])
+        #result = player_rect.clip(rect_list[0])
+        #advanced: clip against a list
+        result = player_rect.clip(rect_list[player_rect.collidelist(rect_list)])
 
         #Render part
         screen.fill((0, 0, 127))
 
         #Render rectangles:
-        #(Commented out due to optional implementation)
-        #pygame.draw.rect(screen, (255, 255, 0), rects[0])
-        #pygame.draw.rect(screen, (0, 255, 0), rects[1])
-        
-        #optional:
-        #(implemented)
-        #use a for loop to render them with the same or
-        #different colours. If using a for loop, the code
-        #below should be adjusting accordingly
-        for i in range(len(rects)):            
-            pygame.draw.rect(screen, colours[i], rects[i])
+        #1: Render player rectangle
+        pygame.draw.rect(screen, player_colour, player_rect)
+
+        #2: Render list of rectangles
+        #optional: use a for loop to render them with the
+        #same or different colours. If using a for loop, the
+        #example code below should be adjusted accordingly
+        for i in range(len(rect_list)):            
+            pygame.draw.rect(screen, colours[i], rect_list[i])
 
         #If there is a collision, render it here
+        #Alternative if statements:
+        #if player_rect.collidelist(rect_list) > -1:
+        #if result.width > 0 and result.height > 0:
         if result.width > 0 < result.height:
             pygame.draw.rect(screen, (255, 0, 0), result, 5)
 
